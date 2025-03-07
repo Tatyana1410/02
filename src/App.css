@@ -1,0 +1,35 @@
+body{
+    font-size: 18px;
+}
+.icon{
+    font-size: 20px;
+}
+.nav-link{
+    cursor: pointer;
+    text-decoration: none;
+}
+.active{
+    font-weight: 700;
+    background-color: rgba(231, 231, 231, 0.803);
+    border-radius: 15px; 
+}
+.sort{
+    text-decoration:underline dotted;
+    cursor: pointer;
+}
+h1, h2{
+    color:black;
+    font-family: fantasy;
+    text-align: center;
+    width: 700;
+}
+button{
+    background-color: rgba(231, 231, 231, 0.803);
+}
+.card{
+    margin: 0 auto;
+    overflow: auto;
+}
+.card:hover{
+    border: 2px solid grey;
+}
