@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import Product from '../components/Product';
 import { useNavigate } from 'react-router-dom';
 
-const CategoryProducts = ({selectProd, selectFavorite}) => {
+const CategoryProducts = () => {
   const { id } = useParams();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);

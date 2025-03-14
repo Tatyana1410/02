@@ -15,6 +15,7 @@ import PrivateRoute from './components/PrivateRoute'
 import NotFound from './pages/NotFound'
 import ProductFilter from './components/ProductFilter'
 import FilterPrice from './components/FilterPrice'
+import FilterTitle from './components/FilterTitle'
 
 
 import {BrowserRouter as Router, Route, Routes, Link, data} from 'react-router-dom'
@@ -104,8 +105,9 @@ console.log(selectedProduct)
               </PrivateRoute>
               } ></Route>
             <Route path='/checkout' element={<Checkout selectedProduct={selectedProduct}/>}></Route>
-            <Route path='/filter-price-range' element={<ProductFilter/>}/>
-            <Route path='/filter-price' element={<FilterPrice/>}/>
+            <Route path='/filter-price' element={<ProductFilter/>}/>
+            <Route path='/filter-price-range' element={<FilterPrice/>}/>
+            <Route path='/filter-title' element={<FilterTitle/>}/>
             <Route path="*" element={<NotFound />} />
            
           

@@ -20,7 +20,7 @@ function Sorting(props) {
                     <ul className="nav flex-column mb-auto text-end">
                         <li><Link to={`/filter-price`}>price</Link></li>
                         <li><Link to={`/filter-price-range`}> price range</Link></li>
-                        <li>category</li>
+                        <li><Link to={`/filter-title`}> title</Link></li>
                     </ul>
                 </div>
                 }
