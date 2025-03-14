@@ -1,25 +1,32 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import { useMemo } from 'react';
 
 function FilterTitle(props) {
     const [products, setProducts] = useState([]);
-    const [titleFilter, setTitleFilter] = useState('');
     
-    const fetchFilteredProducts = async (price) => {
+    const fetchProductsByTitle = async (title) => {
         try {
-          const response = await fetch(`[GET] https://api.escuelajs.co/api/v1/products/?${title}=Generic`);
+          const response = await fetch(`https://api.escuelajs.co/api/v1/products/?title=${title}`);
           if (!response.ok) {
-            throw new Error('Ошибка при загрузке данных');
+            throw new Error('Ошибка загрузки продуктов');
           }
           const data = await response.json();
-          return data;
+          return data; // Возвращаем список продуктов
         } catch (error) {
           console.error('Ошибка:', error);
           return [];
         }
       };
-      const applyFilter = async () => {
-        const filteredProducts = await fetchFilteredProducts(titleFilter);
-        setProducts(filteredProducts);
+
+    const [searchValue, setSearchValue]=useState('');
+         
+    const applyTitleFilter = async () => {
+        if (searchValue) {
+          const filteredProducts = await fetchProductsByTitle(searchValue);
+          setProducts(filteredProducts);
+        } else {
+          alert('Введите название продукта для поиска');
+        }
       };
            
     return (
@@ -30,10 +37,10 @@ function FilterTitle(props) {
                 <input
                     type="text"
                     placeholder="Введите название"
-                    onChange={(e) => setTitleFilter(e.target.value)}
-                    value={titleFilter}
+                    onChange={(e) => setSearchValue(e.target.value)}
+                    value={searchValue}
                 />
-                <button onClick={applyFilter}>Фильтровать</button>
+             <button onClick={applyTitleFilter}>Искать</button>
             </div>
             <div>
             {products.length > 0 ? (
