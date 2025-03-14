@@ -33,5 +33,10 @@ button{
 .card:hover{
     border: 2px solid grey;
 }
+@media (max-width: 768px) {
+    .sidebar {
+      width: 100%;
+    }
+  }
 
 

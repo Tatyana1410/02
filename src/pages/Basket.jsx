@@ -3,17 +3,19 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-function Basket({selectedProduct, remove, clearCart}) {
+function Basket({selectedProduct, remove, clearCart, decreaseQuantity, selectProd}) {
     const navigate = useNavigate();
     
     const handleProductClick = (productId) => {
         navigate(`/products/${productId}`);;
         };
     
-    const totalPrice = selectedProduct.reduce((acc, product) => {
-        const price = product.price || 0;
-        return acc + price;
-      }, 0);
+    // const totalPrice = selectedProduct.reduce((acc, product) => {
+    //     const price = product.price || 0;
+    //     return acc + price;
+    //   }, 0);
+    const totalPrice = selectedProduct.reduce((sum, item) => sum + item.quantity * item.price, 0);
+
 
     return (
         <>
@@ -35,6 +37,9 @@ function Basket({selectedProduct, remove, clearCart}) {
                                         onClick={() => handleProductClick(product.id)}>
                                             {product.title}</h5>
                                         <h4>{product.price} $</h4>
+                                        {/* <h4>{product.quantity} </h4>
+                                        <button onClick={() => decreaseQuantity(product.id)}>-</button>
+                                        <button onClick={() => selectProd(product)}>+</button> */}
                                     </div>
                                     <div>
                                         <button className="btn btn-secondary px-lg-5 fs-5" onClick={()=>remove(index)}>Delete</button>

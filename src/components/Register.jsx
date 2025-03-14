@@ -88,7 +88,8 @@ useEffect(()=>{
                 
                 
                 <button className='btn btn-secondary col-md-5 pull-xs-right'
-                type='submit'>Sign up</button>
+                type='submit'disabled={isLoading}>
+            {isLoading ? 'Signing up...' : 'Sign up'}</button>
                 </form>
                 </fieldset>
                
