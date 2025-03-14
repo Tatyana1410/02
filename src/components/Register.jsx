@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate} from 'react-router-dom';
 
 function Register(props) {
 
@@ -24,6 +25,7 @@ function Register(props) {
         event.preventDefault()
         setIsSubmit(true)
     }
+    
 
     useEffect(()=>{
         if(!isSubmit){return}
@@ -42,16 +44,17 @@ function Register(props) {
     .then(response=>response.json())
     .then(data=>(localStorage.setItem('id', data.id)));
 },[isSubmit]);
+
+const navigate = useNavigate();
    
 useEffect(()=>{
     if(localStorage.getItem('id')){
-        navigate('/')
+        navigate('/user')
         
     }
 },[])
 
      
-
     return (
         <div className='container'>
         <div className='row border-black'>
@@ -60,28 +63,28 @@ useEffect(()=>{
                     Registration
                 </h1>
                 <fieldset>
-                <form onSubmit={handleSubmit}>
-                <fieldset className='form-group'>
-                        <input type='text'
-                        className='form-control form-control-lg mb-3'
-                        placeholder='Name'
-                        value={userName}
-                        onChange={saveUserName}/>
-                    </fieldset>
-                    <fieldset className='form-group'>
-                        <input type='email'
-                        className='form-control form-control-lg mb-3'
-                        placeholder='Email'
-                        value={email}
-                        onChange={saveEmail}/>
-                    </fieldset>
-                    <fieldset className='form-group'>
-                        <input type="password" 
-                        className="form-control form-control-lg mb-3"
-                        placeholder='Password'
-                        value={password}
-                        onChange={savePassword}/>
-                    </fieldset>
+                    <form onSubmit={handleSubmit}>
+                        <fieldset className='form-group'>
+                                <input type='text'
+                                className='form-control form-control-lg mb-3'
+                                placeholder='Name'
+                                value={userName}
+                                onChange={saveUserName}/>
+                        </fieldset>
+                        <fieldset className='form-group'>
+                            <input type='email'
+                            className='form-control form-control-lg mb-3'
+                            placeholder='Email'
+                            value={email}
+                            onChange={saveEmail}/>
+                        </fieldset>
+                        <fieldset className='form-group'>
+                            <input type="password" 
+                            className="form-control form-control-lg mb-3"
+                            placeholder='Password'
+                            value={password}
+                            onChange={savePassword}/>
+                        </fieldset>
                 
                 
                 <button className='btn btn-secondary col-md-5 pull-xs-right'

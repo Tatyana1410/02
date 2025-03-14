@@ -4,11 +4,17 @@ import Header from './components/Header'
 import Sidebar from './components/Sidebar'
 import Footer from './components/Footer'
 import Section from './pages/Section'
-import Product from './pages/SingleProduct'
+import Product from './components/Product'
 import Authentication from './components/Authentication'
 import Basket from './pages/Basket'
-import SingleProduct from './pages/SingleProduct'
 import Register from './components/Register'
+import CategoryProducts from './pages/CategoryProducts'
+import User from './pages/User'
+import Checkout from './pages/Checkout'
+import PrivateRoute from './components/PrivateRoute'
+import NotFound from './pages/NotFound'
+import ProductFilter from './components/ProductFilter'
+import FilterPrice from './components/FilterPrice'
 
 
 import {BrowserRouter as Router, Route, Routes, Link, data} from 'react-router-dom'
@@ -16,6 +22,7 @@ import {BrowserRouter as Router, Route, Routes, Link, data} from 'react-router-d
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min'
 import './App.css'
+
 
 
 
@@ -29,26 +36,52 @@ function App() {
               []);
 
   const[prod, setProd]=useState([]);
-  const[visability, setVisbility]=useState(10)
+  const[visability, setVisability]=useState(10);
+
       useEffect(()=>{
               fetch ("https://api.escuelajs.co/api/v1/products/")
               .then (resp=>resp.json())
               .then (data=>setProd(data.slice(0,visability)))
-              // .then (data=>setProd(data))
             },[visability]);
 
-  const [selectedProduct, setSelectedProduct]=useState([]);
-                
-        function selectProd (product){
-                    setSelectedProduct(selectProduct=>[...selectProduct, product])};
-        
-        function remove(idx){
-                setSelectedProduct(prod=>prod.filter((value,index)=>index!=idx));} 
-                // const totalPrice = selectedProduct.reduce((acc, product) => {
-                //   const price = product.price || 0;
-                //   return acc + price;
-                // }, 0);
-                console.log(selectedProduct)
+  function loadMore(){
+      setVisability(visability=>visability+9)
+      };
+
+  const [selectedProduct, setSelectedProduct]=useState(()=>{
+   
+    const savedCart = localStorage.getItem('cart');
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(selectedProduct));
+  }, [selectedProduct]);
+
+  function selectProd (product){
+    setSelectedProduct(selectProduct=>[...selectProduct, product]);
+  };
+  
+  function remove(idx){
+    setSelectedProduct(prod=>prod.filter((value,index)=>index!=idx));
+  } 
+  const clearCart = () => {
+    const isConfirmed = window.confirm('Вы уверены, что хотите очистить корзину?');
+    if (isConfirmed) {
+    setSelectedProduct([]); 
+    localStorage.removeItem('cart'); 
+  }};
+               
+  const [favoriteProducts, setFavoriteProducts]=useState([]);
+  function selectFavorite (product){
+    setFavoriteProducts(favoriteProduct=>[...favoriteProduct, product])
+  }
+  function removeFavorite(idx){
+    setFavoriteProducts(prod=>prod.filter((value,index)=>index!=idx))
+  }
+  const clearFavorite = () => {
+    setFavoriteProducts([]); 
+  };
+console.log(selectedProduct)
 
   return (
     <>
@@ -58,18 +91,25 @@ function App() {
         <div className='container d-flex'>
         <Sidebar product={product}/>
           <Routes>
-            <Route path='/' element={<Section prod={prod} selectProd={selectProd}/>}/>
-            {/* <Route path={`/categoties/:${categories.id}`}/> */}
-            <Route path='/products' element={<SingleProduct />} />
-            <Route path='/basket' element={<Basket/>} selectedProduct={selectedProduct}/>
+            <Route path='/' element={<Section prod={prod} selectProd={selectProd} selectFavorite={selectFavorite} loadMore={loadMore}/>}/>
+            <Route path='/categories/:id' element={<CategoryProducts selectProd={selectProd} selectFavorite={selectFavorite}/>} />
+            <Route path='/basket' element={<Basket selectedProduct={selectedProduct} remove={remove} clearCart={clearCart}/>} />
             <Route path='/login'
             element={<Authentication />}/>
             <Route path='/register' element={<Register/>}/>
-           {/* <Route element={<PrivateRoute />}/> */}
+            <Route path='/products/:id' element={<Product selectProd={selectProd} selectFavorite={selectFavorite}/>}/>
+            <Route path='/user' element={
+              <PrivateRoute>
+                <User favoriteProducts={favoriteProducts} removeFavorite={removeFavorite} selectProd={selectProd} clearFavorite={clearFavorite}/>
+              </PrivateRoute>
+              } ></Route>
+            <Route path='/checkout' element={<Checkout selectedProduct={selectedProduct}/>}></Route>
+            <Route path='/filter-price-range' element={<ProductFilter/>}/>
+            <Route path='/filter-price' element={<FilterPrice/>}/>
+            <Route path="*" element={<NotFound />} />
            
           
           </Routes>
-        
         </div>
         <Footer/>
       </Router>

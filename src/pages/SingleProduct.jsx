@@ -1,66 +1,93 @@
 import React, {useState, useEffect} from 'react';
 
 
-function SingleProduct({prod}) {
-    // const [image, setImage]=useState();
-    // useEffect(()=>{
-    //     if (!image.length) return;
-    //     setImage(value.images[0]);
-    // }, [value.images])
-    
+function SingleProduct() {
+   
+    const [products, setProducts] = useState([]);
+    const [selectedProductInfo, setSelectedProductInfo] = useState(null);
+    const [loadingDetails, setLoadingDetails] = useState(false);
+    const [error, setError] = useState(null);
+  
+    // Отримання списку продуктів при монтуванні компонента
+    useEffect(() => {
+      const fetchProducts = async () => {
+        try {
+          const response = await fetch('https://api.escuelajs.co/api/v1/products');
+          const data = await response.json();
+          setProducts(data);
+        } catch (err) {
+          console.error('Помилка при отриманні продуктів:', err);
+          setError('Не вдалося завантажити продукти.');
+        }
+      };
+  
+      fetchProducts();
+    }, []);
+  
+    // Функція для отримання додаткової інформації про продукт
+    const handleMoreInfo = async (productId) => {
+      setLoadingDetails(true);
+      setError(null);
+      try {
+        const response = await fetch(`https://api.escuelajs.co/api/v1/products/${productId}`);
+        const data = await response.json();
+        setSelectedProductInfo(data);
+      } catch (err) {
+        console.error('Помилка при отриманні деталей продукту:', err);
+        setError('Не вдалося завантажити деталі продукту.');
+      } finally {
+        setLoadingDetails(false);
+      }
+    };
     
     return (
         <>
-        {prod.map((value, index)=>(
-                    <div className="card m-2 p-2" style={{width:'18rem'}}>
-                        <div>
-                            <img key={`${index}_${value.title}`}
-                                src={value.images[0]} 
-                                className="card-img-top" 
-                                alt={value.title}
-                                style={{width:'100%',
-                                height:'18rem'}}/>
-                                {/* {value.images.map((image, i)=>(
-                                    <div
-                                    key={i}>
-                                        <img src={image} alt=""
-                                        onClick={()=>setImage(value.image)} />
-                                    </div>
-                                ))} */}
-                            
-                        </div>
-
-                        <div className="card-body">
-                            <h5 key= {`${value.title}_${index}`} className="card-title">{value.title}</h5>
-                            <h5 key= {value.id} className="card-title">{value.price}</h5>
-                            <p>{value.description}</p>
-                            <a key={value.id} href={`https://api.escuelajs.co/api/v1/products`} className="btn  btn-outline-secondary">Go</a>
-                        </div>
-                    </div>
+         <div className="container mt-4">
+      <h1>Список продуктів</h1>
+      {error && <div className="alert alert-danger">{error}</div>}
+      <div className="row">
+        {products.map((product) => (
+          <div className="col-md-4 mb-4" key={product.id}>
+            <div className="card h-100">
+              <div className="card-body">
+                <h5 className="card-title">{product.title}</h5>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => handleMoreInfo(product.id)}
+                >
+                  Більше інформації
+                </button>
+              </div>
+            </div>
+          </div>
         ))}
-        
-       </>
+      </div>
 
+      {loadingDetails && <p>Завантаження деталей...</p>}
+      {selectedProductInfo && (
+        <div className="mt-4">
+          <h2>Деталі продукту</h2>
+          <div className="card">
+            <div className="card-body">
 
+            {/* <div style={{backgroundImage:`url(${image})` }}/>
+                            <div>
+                            {products.images.map((image, i) => (
+                        <div
+                            key={i}
+                            onClick={() => setImage(image)} 
+                            style={{backgroundImage:`url(${image})`}}/> ))}
+                
+                            </div> */}
 
-    //     goods &&
-    //    {goods.map((good, index)=>(
-    //         <div className="card m-2 p-2" style={{width:'18rem'}}>
-    //             <img key={`${index}_${good.title}`}
-    //                 src={good.images[0]} 
-    //                 className="card-img-top" 
-    //                 alt={good.title}
-    //                 style={{width:'100%',
-    //                 height:'18rem'}}/>
-                    
-    //         <div className="card-body">
-    //             <h5 key= {`${good.title}_${index}`} className="card-title">{good.title}</h5>
-    //             <h5 key= {good.id} className="card-title">{good.price}</h5>
-    //                 <p>{good.description}</p>
-    //             <a key={id} href={`https://api.escuelajs.co/api/v1/products/${id}`} className="btn btn-outline-secondary">Go</a>
-    //         </div>
-    //     </div>
-    //     ))}
+              <h5 className="card-title">{selectedProductInfo.title}</h5>
+              <p className="card-text">{selectedProductInfo.description}</p>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+        </>
     );
 }
 

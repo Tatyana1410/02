@@ -1,20 +1,27 @@
-import React, { useState, useEffect, createContext} from 'react';
+import React, { useState, useEffect} from 'react';
 import Register from './Register';
-import { useNavigate,useLocation, data, Link } from 'react-router-dom';
+import { useNavigate,useLocation,Link } from 'react-router-dom';
 
-export const AuthContext=createContext();
 
-function Authentiation({selectedProduct}) {
+function Authentiation() {
 
 const[email, setEmail]= useState('');
 const[password, setPassword] =useState('');
 const[isSubmit, setIsSubmit]=useState(false);
-const [isAuthenticated, setAuth] = useState(false);
+const [isAuthenticated, setAuth] = useState(false)
+const [isLoading, setIsLoading] = useState(true);
+const [error, setError] = useState(null);
 
+const navigate = useNavigate();
+const location=useLocation();
+const from = location.state?.from || '/user';
 
 const handleSubmit=(event)=>{
-    event.preventDefault()
-    setIsSubmit(true)}
+    event.preventDefault();
+    setError(null);
+    setIsLoading(true)
+    setIsSubmit(true)
+}
 
 function saveEmail(e){
     setEmail(e.target.value)
@@ -23,47 +30,52 @@ function savePassword(e){
     setPassword(e.target.value)
 }
 
-  
 
 useEffect(()=>{
     if(!isSubmit){return}
     fetch('https://api.escuelajs.co/api/v1/auth/login',{
     method:'post',
-    body: JSON.stringify({
-        email:`${email}`,
-        password:`${password}`
-    }),
+    body: JSON.stringify({email:email,
+        password:password}),
     headers: {
         'Content-Type': 'application/json'
     },})
-    .then(response=>response.json())
-    .then(data=>(localStorage.setItem('token', data.access_token)));
+    .then(async (response) => {
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Ошибка авторизации');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        localStorage.setItem('your_access_token', data.access_token);
+        localStorage.setItem('login_time', Date.now());
+        setAuth(true);
+        navigate(from, { replace: true }); 
+      })
+      .catch((err) => {
+        setError(err.message); 
+        navigate('/register');
+      })
+      .finally(() => {
+        setIsSubmit(false); 
+        setIsLoading(false);
+      });
 },[isSubmit]);
 
-
-
-     
-const navigate = useNavigate();
-const location=useLocation();
-const from = location.state?.from.pathname || '/';
-
-
-useEffect(()=>{
-    if(localStorage.getItem('id')){
-        setAuth(true)
-        navigate(from, { replace: true })
-        console.log(isAuthenticated)
+  useEffect(() => {
+    if (isLoading) return;
+    if (isAuthenticated) {
+      navigate('/user'); 
+    } else {
+      navigate('/register');
     }
-},[])
-
-console.log(selectedProduct)
-
+  }, [isAuthenticated]);
 
     return (
         <>
-              <AuthContext.Provider value={{ isAuthenticated, setAuth }}>  </AuthContext.Provider>
 
-      {!isSubmit ?
+      {!isSubmit ? 
         <div className='container'>
             <div className='row border-black'>
                 <div className='col-md-6 offset-md-3 col-xs-12 p-md-3 rouded-4 shadow'>
@@ -99,10 +111,8 @@ console.log(selectedProduct)
                 </div>
             </div>
             
-        </div>
+        </div>    
         :<Register/>}
-              
-
         </>
     );
 }
