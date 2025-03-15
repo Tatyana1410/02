@@ -5,7 +5,7 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 
 
-function Block({title, id, category, price, selectProd, selectFavorite}) {
+function ProductCard({title, id, category, price, selectProd, selectFavorite}) {
 
         const navigate = useNavigate();
 
@@ -52,4 +52,4 @@ function Block({title, id, category, price, selectProd, selectFavorite}) {
     );
 }
 
-export default Block;
+export default ProductCard;
