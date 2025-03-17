@@ -86,7 +86,7 @@ const decreaseQuantity = (productId) => {
 
       <Router>
         <Header/>
-        <div className='container d-flex'>
+        <div className='container d-sm-flex d-block'>
         <Sidebar/>
         <SwipeUp/>
           <Routes>

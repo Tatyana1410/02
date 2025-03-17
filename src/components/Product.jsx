@@ -29,64 +29,59 @@ function Product({selectProd,selectFavorite}) {
           fetchProducts();
         }, [id]);
 
-        // useEffect(()=>{
-        //     if (!products.images || products.images.length === 0) return;
-        //     setImage(products.images[0]);
-        // }, [products.images])
+        useEffect(()=>{
+            if (!products.images || products.images.length === 0) return;
+            setImage(products.images[0]);
+        }, [products.images])
 
     if (loading) return <p>Loading products...</p>;
     if (error) return <div className="alert alert-danger">{error}</div>;
     if (!products) return <p>Product not found</p>;
         
-
-        
     return (
         <>
-            <div className="card m-2 p-2" style={{width:'20rem'}}>
-                    <div>
-                        <div>
-                                {products.category && products.category.image && (
-                            <img 
-                                src={products.category.image} 
-                                className="img-fluid rounded-start" 
-                                alt={products.title} 
-                                style={{height: '100%', objectFit: 'cover'}}
-                                // onClick={()=>setIsSubmit(false)}
-                            />
-                        )}
-                        </div> 
-
-                        {/* <div style={{backgroundImage:`url(${image})` }}/>
-                            <div>
-                            {products.images.map((image, i) => (
-                        <div
-                            key={i}
-                            onClick={() => setImage(image)} 
-                            style={{backgroundImage:`url(${image})`}}/> ))}
-                
-                            </div> */}
+        <div className="container">
+            <div className="d-sm-flex d-block gap-3" >
+                <div className="d-flex align-items-start col-6">
+            {/* big image */}
+                    <div className="main-image">
+                        <img src={image} alt="Product" />
+                    </div>
+            {/* small image */}
+                    <div className="d-block justify-content-center">
+                        {products.images.map((img, index) => (
+                            <div
+                                key={index}
+                                className={`thumbnail ${image === img ? 'active' : ''} mb-1`}
+                                onClick={() => setImage(img)}
+                            >
+                                <img src={img} 
+                                alt={`thumbnail ${index + 1}`}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                 </div>
                     
-                        <div className="card-body">
-                            <h5 key= {`${products.title}_${products.id}`} 
-                                className="card-title"
-                                style={{minHeight:'45px'}}>{products.title}</h5>
-                            <p>{products.description}</p>
-                            <div className='d-flex justify-content-between mt-3'>
-                                <h4 key= {products.id} className="card-title">{products.price} $</h4> 
-                                <div>
-                                    <button type="button" className="btn me-2" onClick={()=>selectFavorite(products)}>
+                <div className="col-6">
+                    <h4 key= {`${products.title}_${products.id}`} 
+                                style={{minHeight:'45px'}}>{products.title}</h4>
+                    <p>{products.description}</p>
+                    <div className='d-flex justify-content-between mt-3'>
+                            <h4 key= {products.id} className="price">{products.price} $</h4> 
+                        <div>
+                            <button type="button" className="btn me-2" onClick={()=>selectFavorite(products)}>
                                         <FontAwesomeIcon icon={faHeart} className='icon'/>
                                     </button>
-                                    <button type="button" className="btn" onClick={()=>selectProd(products)}><FontAwesomeIcon icon={faBasketShopping} className='icon'/>
+                            <button type="button" className="btn" onClick={()=>selectProd(products)}><FontAwesomeIcon icon={faBasketShopping} className='icon'/>
                                     </button>
-                                </div>
-                            </div>
                         </div>
                     </div>
-                
-        </div>
-          
-        </>
+                </div>
+            </div>    
+        </div>  
+    </>
+       
     );
 }
 

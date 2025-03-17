@@ -6,7 +6,7 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 
 
-function ProductCard({title, id, category, price, selectProd, selectFavorite}) {
+function ProductCard({title, id, images, price, selectProd, selectFavorite, category}) {
 
         const navigate = useNavigate();
 
@@ -18,18 +18,18 @@ function ProductCard({title, id, category, price, selectProd, selectFavorite}) {
       <>
       <div className="product-inner">
         <div className="flex-wrap position-relative overflow-hidden mb-3">
-            <img src={category.image}
+            <img src={images[0]}
                 style={{width:'100%'}}
                 className="card-img-top"
                 alt={title}/>
             <div className="actions">
-            <a onClick={()=>selectProd({id,title, category, price})}>
+            <a onClick={()=>selectProd({id,title, images, price})}>
                 <FontAwesomeIcon icon={faBasketShopping} 
                 className='icon'/></a>
             <a onClick={()=>handleProductClick(id)}>
                 <FontAwesomeIcon icon={faMagnifyingGlass} 
                 className='icon'/></a>
-            <a onClick={()=>selectFavorite({id,title, category, price})}>
+            <a onClick={()=>selectFavorite({id,title, images, price})}>
                 <FontAwesomeIcon icon={faHeart} 
                 className='icon'/></a>
             </div>

@@ -34,8 +34,8 @@ function Basket({selectedProduct, remove, clearCart, decreaseQuantity, selectPro
                                             {product.title}</h5>
                                         <h4 className='price'>{product.price} $</h4>
                                     </div>
-                                    <div className='d-flex col-2 justify-content-evenly '>
-                                        <button className='btn' onClick={() => decreaseQuantity(product.id)}>-</button>
+                                    <div className='d-flex col-2 justify-content-evenly align-items-center'>
+                                        <button className='btn' onClick={() => decreaseQuantity(product.id)}><h4>-</h4></button>
                                         <h4>{product.quantity} </h4>
                                         <button className='btn' onClick={() => selectProd(product)}><h4>+</h4></button>
                                     

@@ -1,8 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Link } from 'react-router-dom';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import { faPhone } from '@fortawesome/free-solid-svg-icons';
 
 function Footer(props) {
-    const nowYear = new Date().getFullYear()
+
+    const nowYear = new Date().getFullYear();
+    const [showState, setShowState] = useState(false);
+    function changeShowState(){
+        setShowState(showState=>!showState);
+    }
+    
     return (
         <div className='footer'>
         <div className="container">
@@ -38,12 +46,13 @@ function Footer(props) {
                     
                         <form>
                             <p className="text-body-secondary">Call back</p>
+                            <FontAwesomeIcon icon={faPhone} onClick={changeShowState} style={{cursor:'pointer'}}/>
+                            {showState &&(
                             <div className="d-flex flex-column flex-sm-row w-100 gap-2">
                                 <label  
                                 className="visually-hidden">Email address</label>
                                 <input id="newsletter1" type="text" className="form-control" placeholder="Phone"/>
-                            
-                            </div>
+                            </div>)}
                         </form>
                     </div>
                 </div>
