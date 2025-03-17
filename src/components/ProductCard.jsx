@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import { faBasketShopping } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -13,11 +14,34 @@ function ProductCard({title, id, category, price, selectProd, selectFavorite}) {
           navigate(`/products/${id}`);
         };
 
-   
     return (
       <>
+      <div className="product-inner">
+        <div className="flex-wrap position-relative overflow-hidden mb-3">
+            <img src={category.image}
+                style={{width:'100%'}}
+                className="card-img-top"
+                alt={title}/>
+            <div className="actions">
+            <a onClick={()=>selectProd({id,title, category, price})}>
+                <FontAwesomeIcon icon={faBasketShopping} 
+                className='icon'/></a>
+            <a onClick={()=>handleProductClick(id)}>
+                <FontAwesomeIcon icon={faMagnifyingGlass} 
+                className='icon'/></a>
+            <a onClick={()=>selectFavorite({id,title, category, price})}>
+                <FontAwesomeIcon icon={faHeart} 
+                className='icon'/></a>
+            </div>
+        </div>
+        <div className="pb-2">
+            <h5 className="mb-3" 
+            style={{height:'40px'}}>{title}</h5>
+            <h5><span className="price">{price} $</span></h5>
+        </div>
+    </div>
      
-        <div className="card m-2 p-2" style={{width:'20rem'}}>
+        {/* <div className="card m-2 p-2" style={{width:'20rem'}}>
             <div>
                 <img key={`${id}_${title}`}
                 src={category.image} 
@@ -46,7 +70,27 @@ function ProductCard({title, id, category, price, selectProd, selectFavorite}) {
                 
            
             </div>
-        </div>
+        </div> */}
+
+<div class="product-inner">
+  <div class="product-wrap position-relative overflow-hidden mb-3">
+    <img src={category.image}
+    style={{width:'100%'}}/>
+    <div class="actions">
+      <a className="add-to-cart" 
+      onClick={()=>selectProd({id,title, category, price})}><FontAwesomeIcon icon={faBasketShopping} className='icon'/></a>
+      <a className='quickview' 
+      onClick={()=>handleProductClick(id)}><FontAwesomeIcon icon={faMagnifyingGlass} className='icon'/></a>
+      <a className="wishlist" 
+      onClick={()=>selectFavorite({id,title, category, price})}>
+        <FontAwesomeIcon icon={faHeart} className='icon'/></a>
+  </div>
+  </div>
+  <div class="pb-2">
+    <h5 class="mb-3" style={{height:'40px'}}>{title}</h5>
+    <h5><span class="price">{price} $</span></h5>
+  </div>
+</div>
 
           </>
     );

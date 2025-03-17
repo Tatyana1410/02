@@ -52,7 +52,7 @@ function Authentiation() {
         })
       .catch((err) => {
           setError(err.message); 
-          navigate('/register');
+          // navigate('/register');
         })
       .finally(() => {
           setIsSubmit(false); 
@@ -98,7 +98,8 @@ function Authentiation() {
                     <button className='btn btn-secondary col-md-5 pull-xs-right'
                     type='submit'
                     disabled={isLoading}>
-            {isLoading ? 'Signing in...' : 'Sign in'}</button>
+            {isLoading ? 'Signing in...' : 'Sign in'}
+            </button>
                 </form>
             </fieldset>
                 <p style={{fontSize:'18px',

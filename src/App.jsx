@@ -12,6 +12,7 @@ import User from './pages/User'
 import Checkout from './pages/Checkout'
 import PrivateRoute from './components/PrivateRoute'
 import NotFound from './pages/NotFound'
+import SwipeUp from './components/SwipeUp'
 
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 
@@ -26,11 +27,10 @@ function App() {
     const savedCart = localStorage.getItem('cart');
     return savedCart ? JSON.parse(savedCart) : [];
   });
-
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(selectedProduct));
   }, [selectedProduct]);
-
+  
   const selectProd = (product) => {
   setSelectedProduct((prevCart) => {
     const existingItem = prevCart.find((item) => item.id === product.id);
@@ -65,9 +65,11 @@ const decreaseQuantity = (productId) => {
     setSelectedProduct([]); 
     localStorage.removeItem('cart'); 
   }};
-  
-               
+             
   const [favoriteProducts, setFavoriteProducts]=useState([]);
+  useEffect(() => {
+    localStorage.setItem('favorite', JSON.stringify(favoriteProducts));
+  }, [favoriteProducts]);
   function selectFavorite (product){
     setFavoriteProducts(favoriteProduct=>[...favoriteProduct, product])
   }
@@ -86,6 +88,7 @@ const decreaseQuantity = (productId) => {
         <Header/>
         <div className='container d-flex'>
         <Sidebar/>
+        <SwipeUp/>
           <Routes>
             <Route path='/:id' element={<Section selectProd={selectProd} selectFavorite={selectFavorite} l/>}/>
             <Route path='/' element={<Section selectProd={selectProd} selectFavorite={selectFavorite} />}/>

@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import ProductCard from '../components/ProductCard';
 import { useParams, useLocation } from 'react-router-dom';
 
-
 function Section({selectProd, selectFavorite}) {
     const { id } = useParams();
     const location = useLocation();
@@ -22,7 +21,7 @@ function Section({selectProd, selectFavorite}) {
             setLoading(true)
             const response = await fetch("https://api.escuelajs.co/api/v1/products/");
             const data = await response.json();
-            setProd(data)
+            setProd(data.slice(0, visability))
             setProducts(data.slice(0, visability));
         } catch (err) {
             console.error("Failed to load products:", err);
@@ -36,7 +35,7 @@ function Section({selectProd, selectFavorite}) {
     
 
   function loadMore(){
-      setVisability(visability=>visability+9)
+      setVisability(visability=>visability+10)
       };
   
     useEffect(() => {
@@ -59,9 +58,8 @@ function Section({selectProd, selectFavorite}) {
           };
           fetchCategoryProducts();
             } else {
-            setProducts(prod);
-            setLoading(false);}
-        }, [id]);
+            setProducts(prod);}
+        }, [id, prod]);
 
       
 
@@ -92,7 +90,7 @@ function Section({selectProd, selectFavorite}) {
 
 
 const applyFilters = async () => {
-    // setLoading(true);
+    setLoading(true);
     setError(null);
     let url = "https://api.escuelajs.co/api/v1/products/?";
     if (priceFilter) url += `price=${priceFilter}`;
@@ -118,17 +116,6 @@ useEffect(() => {
         setProducts(prod);
     }
 }, [location, prod, id]);
-const handlePriceFilterChange = (e) => {
-    setPriceFilter(e.target.value);
-};
-
-const handlePriceMinChange = (e) => {
-    setPriceMin(e.target.value);
-};
-
-const handlePriceMaxChange = (e) => {
-    setPriceMax(e.target.value);
-};
 
 if (loading) {return <p>Loading products...</p>;}
 if (error) {return <div className="alert alert-danger">{error}</div>;}
@@ -143,7 +130,7 @@ if (error) {return <div className="alert alert-danger">{error}</div>;}
                     aria-label="Search"
                     autoComplete='off'
                     placeholder="Введите цену"
-                    onChange={handlePriceFilterChange}
+                    onChange={(e) =>setPriceFilter(e.target.value)}
                     value={priceFilter}
                 />
                 <input
@@ -152,7 +139,7 @@ if (error) {return <div className="alert alert-danger">{error}</div>;}
                     aria-label="Search"
                     placeholder="Минимальная цена"
                     value={priceMin}
-                    onChange={handlePriceMinChange}
+                    onChange={(e) =>setPriceMin(e.target.value)}
                     />
                 <input
                     type="number"
@@ -160,28 +147,26 @@ if (error) {return <div className="alert alert-danger">{error}</div>;}
                     aria-label="Search"
                     placeholder="Максимальная цена"
                     value={priceMax}
-                    onChange={handlePriceMaxChange}
+                    onChange={(e) =>setPriceMax(e.target.value)}
                     />
                 <button className='btn btn-outline-secondary' onClick={applyFilters}>Фильтровать</button>
             </div>
             
-            
-            
+          
             {priceFilter && products.length > 0 &&(
             <div className='row justify-content-between'>
                 {products.map((obj)=>( 
                 <ProductCard key={obj.id} {...obj} selectProd={selectProd} selectFavorite={selectFavorite} /> 
                     ))} 
                 </div>)} 
-
-            {priceMax && priceMin && products.length > 0 &&(
+            {priceMax && priceMax && products.length > 0 &&(
             <div className='row justify-content-between'>
                 {products.map((obj)=>( 
                 <ProductCard key={obj.id} {...obj} selectProd={selectProd} selectFavorite={selectFavorite} /> 
                     ))} 
-                </div>)}
+                </div>)} 
 
-            {id &&(
+            {id && products.length > 0 &&(
                 <div className='row justify-content-between'>
             <h2 key={products.id}>
                 {products.length>0 ? products[0].category.name:'Category'}
@@ -201,7 +186,8 @@ if (error) {return <div className="alert alert-danger">{error}</div>;}
             </div>
             )}
                 
-        </div>    
+        </div>  
+        
         </>
     );
 }

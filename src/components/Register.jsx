@@ -8,8 +8,6 @@ function Register(props) {
     const[password, setPassword] =useState('');
     const[isSubmit, setIsSubmit]=useState(false);
     
-    
-
     function saveUserName(e){
         setUserName(e.target.value)
     }
@@ -20,7 +18,6 @@ function Register(props) {
         setPassword(e.target.value)
     }
    
-    
     const handleSubmit=(event)=>{
         event.preventDefault()
         setIsSubmit(true)
@@ -88,8 +85,8 @@ useEffect(()=>{
                 
                 
                 <button className='btn btn-secondary col-md-5 pull-xs-right'
-                type='submit'disabled={isLoading}>
-            {isLoading ? 'Signing up...' : 'Sign up'}</button>
+                type='submit'>
+            Sign up</button>
                 </form>
                 </fieldset>
                

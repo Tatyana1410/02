@@ -6,13 +6,13 @@ import { useNavigate } from 'react-router-dom';
 
 function User({favoriteProducts,removeFavorite, selectProd, clearFavorite}) {
 
-    const[userName, setUserName]=useState('');
-    const[email, setEmail]= useState('');
-    const[password, setPassword] =useState('');
-    const[isSubmit, setIsSubmit]=useState(false);
+    const [userName, setUserName]=useState('');
+    const [email, setEmail]= useState('');
+    const [password, setPassword] =useState('');
+    const [isSubmit, setIsSubmit]=useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isProfileLoading, setIsProfileLoading] = useState(true);
-    const[id, setId]=useState('');
+    const [id, setId]=useState('');
     const handleSubmit = (event) => {
         event.preventDefault();
         setIsSubmit(true);
@@ -100,26 +100,26 @@ function User({favoriteProducts,removeFavorite, selectProd, clearFavorite}) {
 
     return (
         <div className='container'>
-                <div className='col-lg-6 col-12'>
+                <div className='col-lg-6 col-12 mb-5'>
                     <fieldset>
                         <form onSubmit={handleSubmit}>
                             <fieldset className='form-group'>
                                 <input type='text'
-                                    className='form-control form-control-lg mb-3'
+                                    className='form-control mb-3'
                                     placeholder='Name'
                                     value={userName}
                                     onChange={saveUserName}/>
                             </fieldset>
                             <fieldset className='form-group'>
                                 <input type='email'
-                                    className='form-control form-control-lg mb-3'
+                                    className='form-control mb-3'
                                     placeholder='Email'
                                     value={email}
                                     onChange={saveEmail}/>
                             </fieldset>
                             <fieldset className='form-group'>
                                 <input type="password" 
-                                    className="form-control form-control-lg mb-3"
+                                    className="form-control mb-3"
                                     placeholder='Password'
                                     value={password}
                                     onChange={savePassword}/>
@@ -134,35 +134,35 @@ function User({favoriteProducts,removeFavorite, selectProd, clearFavorite}) {
                             
                         </form>
                     </fieldset>
-                    
-                    
                 </div>
 
-                
                 {favoriteProducts.length ?
-                    <div className="col-12 mt-3">
+                    <div className="col-12">
                         <h2>Favorite</h2>
                         {favoriteProducts.map((product, index)=>{
-                            return <div key={index} className='d-flex border-bottom border-top py-2 border-2 align-items-center justify-content-between'>
-                                        <div className='col-3'>
+                            return <div key={index} className='product-favorite d-flex col-12 border-bottom border-top py-2 border-2 align-items-center justify-content-between'>
+                                        <div className='col-lg-4 col-5'>
                                             <img src={product.category.image} 
                                             alt={product.title} 
-                                            style={{width:'100%'}}
+                                            style={{width:'50%',
+                                            cursor:'pointer'
+                                            }}
                                             onClick={() => handleProductClick(product.id)}/>
                                         </div>
-                                        <div className='col-3'>
+                                        <div className='col-5'>
                                             <h5 className='mb-3'
+                                            style={{cursor:'pointer'}}
                                             onClick={() => handleProductClick(product.id)}>
                                               {product.title}</h5>
-                                            <h4>{product.price} $</h4>
+                                            <h4 className='price'>{product.price} $</h4>
                                         </div>
-                                        <div>
-                                            <button className="btn" onClick={()=>removeFavorite(index)}><FontAwesomeIcon icon={faTrashCan} className='icon' style={{fontSize:'26px'}}/></button>
-                                            <button className="btn" onClick={()=>selectProd(product)}><FontAwesomeIcon icon={faBasketShopping} className='icon' style={{fontSize:'26px'}}/></button>
+                                        <div className='col-3 text-end'>
+                                            <button className="btn" onClick={()=>removeFavorite(index)}><FontAwesomeIcon icon={faTrashCan} className='icon'/></button>
+                                            <button className="btn mx-2" onClick={()=>selectProd(product)}><FontAwesomeIcon icon={faBasketShopping} className='icon'/></button>
                                         </div>
                                     </div>
                         })}
-                        <button className='btn btn-secondary mt-3 px-lg-5 fs-5' onClick={clearFavorite}>Clear</button>
+                        <button className='btn btn-secondary mt-3 px-lg-5 fs-6' onClick={clearFavorite}>Clear</button>
                     </div>
                 :null}
 
