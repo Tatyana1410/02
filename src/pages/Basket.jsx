@@ -20,7 +20,7 @@ function Basket({selectedProduct, remove, clearCart, decreaseQuantity, selectPro
                     {selectedProduct.map((product, index)=>{
                         return <div key={index} className='d-flex product-favorite border-bottom border-top py-2 border-2 align-items-center justify-content-between'>
                                     <div className='col-3'>
-                                        <img src={product.category.image} 
+                                        <img src={product.images[0]} 
                                         alt={product.title} 
                                         style={{width:'75%',
                                             cursor:'pointer'

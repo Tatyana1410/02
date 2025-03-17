@@ -11,7 +11,6 @@ function Product({selectProd,selectFavorite}) {
     const [error, setError] = useState(null);
     const [image, setImage]=useState();
        
-
     useEffect(() => {
         const fetchProducts = async () => {
             try {
@@ -40,15 +39,19 @@ function Product({selectProd,selectFavorite}) {
         
     return (
         <>
-        <div className="container">
-            <div className="d-sm-flex d-block gap-3" >
-                <div className="d-flex align-items-start col-6">
+        <div className="container position-relative">
+            <div className="d-sm-flex d-block gap-3 " >
+                <div className="d-flex align-items-start col-12 col-md-6 mb-3 mb-md-0">
             {/* big image */}
-                    <div className="main-image">
-                        <img src={image} alt="Product" />
+                    <div className='main-image'>
+                        <img src={image} alt="Product"
+                        style={{width:'100%',
+                            height:'auto',
+                            objectFit:'cover'
+                        }}/>
                     </div>
             {/* small image */}
-                    <div className="d-block justify-content-center">
+                    <div className= 'd-block justify-content-center'>
                         {products.images.map((img, index) => (
                             <div
                                 key={index}
@@ -57,13 +60,17 @@ function Product({selectProd,selectFavorite}) {
                             >
                                 <img src={img} 
                                 alt={`thumbnail ${index + 1}`}
+                                style={{width:'100%',
+                                    height:'auto',
+                                    objectFit:'cover'
+                                }}
                                 />
                             </div>
                         ))}
                     </div>
                  </div>
                     
-                <div className="col-6">
+                <div className="col-12 col-md-6">
                     <h4 key= {`${products.title}_${products.id}`} 
                                 style={{minHeight:'45px'}}>{products.title}</h4>
                     <p>{products.description}</p>

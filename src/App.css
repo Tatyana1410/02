@@ -29,6 +29,9 @@ h1, h2{
     margin: 0 15px;
     border-radius: 4px;
     line-height: 1.5;
+    position: relative;
+    z-index: 3;
+    padding-right: 10px;
 }
 input{
     z-index: 1;
@@ -92,8 +95,6 @@ input{
     cursor: pointer;
     padding: 10px;
 }
-
-
 .main-image {
     width: 20rem;
     margin-right: 1rem;
@@ -101,11 +102,6 @@ input{
     border-radius: 8px;
     overflow: hidden;
     background-size: cover;
-}
-img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
 }
 .thumbnail {
     width: 5rem;
@@ -119,6 +115,7 @@ img {
     border-color: #2a196b;
     transform: scale(1.1);
 }
+
 
 
  

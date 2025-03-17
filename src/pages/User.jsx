@@ -142,7 +142,7 @@ function User({favoriteProducts,removeFavorite, selectProd, clearFavorite}) {
                         {favoriteProducts.map((product, index)=>{
                             return <div key={index} className='product-favorite d-flex col-12 border-bottom border-top py-2 border-2 align-items-center justify-content-between'>
                                         <div className='col-lg-4 col-5'>
-                                            <img src={product.category.image} 
+                                            <img src={product.images[0]} 
                                             alt={product.title} 
                                             style={{width:'50%',
                                             cursor:'pointer'
