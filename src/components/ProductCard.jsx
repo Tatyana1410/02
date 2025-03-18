@@ -35,8 +35,8 @@ function ProductCard({title, id, images, price, selectProd, selectFavorite, cate
             </div>
         </div>
         <div className="pb-2">
-            <h5 className="mb-3" 
-            style={{height:'40px'}}>{title}</h5>
+            <h5 className="mb-2" 
+            style={{height:'45px',overflow:'hidden'}}>{title}</h5>
             <h5><span className="price">{price} $</span></h5>
         </div>
     </div>
