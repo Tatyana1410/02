@@ -19,7 +19,8 @@ function ProductCard({title, id, images, price, selectProd, selectFavorite, cate
     return (
       <>
       <div className="product-inner">
-        <div className="flex-wrap position-relative overflow-hidden mb-3">
+        <div className="flex-wrap position-relative overflow-hidden mb-3"
+        style={{height:'18rem'}}>
             <img src={images[0]}
                 style={{width:'100%'
                 }}
