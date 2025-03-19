@@ -48,10 +48,9 @@ function User({favoriteProducts,removeFavorite, selectProd, clearFavorite}) {
     useEffect(() => {
         if(!isSubmit){return}
         fetch(`https://api.escuelajs.co/api/v1/users/${id}`, {
-        method: 'PUT', // Используем метод PUT для обновления данных
+        method: 'PUT', 
         headers: {
           'Content-Type': 'application/json',
-        //   'Authorization': `Bearer ${localStorage.getItem('your_access_token')}`
         },
         body: JSON.stringify({
           name: userName,

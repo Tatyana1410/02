@@ -22,20 +22,6 @@ function Checkout({selectedProduct}) {
         return acc + price;
       }, 0);
     
-      // Отправка заказа
-    //   fetch('https://api.example.com/orders', {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify(orderData),
-    //   })
-    //     .then(response => response.json())
-    //     .then(data => {
-    //       alert('Заказ успешно оформлен!');
-    //     })
-    //     .catch(error => {
-    //       alert('Ошибка при оформлении заказа!');
-    //       console.error(error);
-    //     });
     
     return (
         <div className='col-md-6 offset-md-1 col-xs-12 p-md-3 rouded-4 shadow'>

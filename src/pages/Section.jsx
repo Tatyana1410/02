@@ -56,38 +56,10 @@ function Section({selectProd, selectFavorite}) {
               setLoading(false);
             }
           };
-          fetchCategoryProducts();
+  fetchCategoryProducts();
             } else {
             setProducts(prod);}
         }, [id, prod]);
-
-      
-
-// const handlePriceChange = async (e) => {
-//     const value = e.target.value;
-//     setPriceFilter(value);
-//         try {
-//             if (!value) {
-//             let url = "https://api.escuelajs.co/api/v1/products/";
-//             if (id) url += `?categoryId=${id}`;
-//             if (priceFilter) url += `price=${priceFilter}&`;
-//             if (priceMin && priceMax) url += `price_min=${priceMin}&price_max=${priceMax}`;
-
-//             const response = await fetch(url);
-//             const data = await response.json();
-//             setProducts(data);}
-//             else{
-//                 const response = await fetch(`https://api.escuelajs.co/api/v1/products/?price=${value}`);
-//                 const data = await response.json();
-//                 setProducts(data);
-//             }
-//         } catch (err) {
-//             console.error("Error:", err);
-//             setError(err.message || "Error filtering products.");
-//         } finally {
-//             setLoading(false);
-//         }};
-
 
 const applyFilters = async () => {
     setLoading(true);

@@ -52,7 +52,6 @@ function Authentiation() {
         })
       .catch((err) => {
           setError(err.message); 
-          // navigate('/register');
         })
       .finally(() => {
           setIsSubmit(false); 

@@ -13,32 +13,6 @@ function Sidebar() {
         setIsOpen(!isOpen);
                 };
 
-    // const [products, setProducts] = useState([]);
-    // const [priceFilter, setPriceFilter] = useState('');
-   
-    //         const fetchPrice = async (priceFilter) => {
-    //             try {
-    //               const response = await fetch(`https://api.escuelajs.co/api/v1/products/?price=${priceFilter}`);
-    //               if (!response.ok) {
-    //                 throw new Error('Ошибка при загрузке данных');
-    //               }
-    //               const data = await response.json();
-    //               return data;
-    //             } catch (error) {
-    //               console.error('Ошибка:', error);
-    //               return [];
-    //             }
-    //           };
-              
-    // const applyFilter = async () => {
-    //     const filteredProducts = await fetchPrice(priceFilter);
-    //     setProducts(filteredProducts);
-    //   };
-    //   console.log(products)
-    //   useEffect(() => {
-    //     localStorage.setItem('price', JSON.stringify(products));
-    //   }, [products]);
-
     return (
          <>
          <div className='d-md-none'>

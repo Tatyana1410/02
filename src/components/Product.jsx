@@ -42,7 +42,6 @@ function Product({selectProd,selectFavorite}) {
         <div className="container position-relative">
             <div className="d-sm-flex d-block gap-3 " >
                 <div className="d-flex align-items-start col-12 col-md-6 mb-3 mb-md-0">
-            {/* big image */}
                     <div className='main-image'>
                         <img src={image} alt="Product"
                         style={{width:'100%',
@@ -50,7 +49,6 @@ function Product({selectProd,selectFavorite}) {
                             objectFit:'cover'
                         }}/>
                     </div>
-            {/* small image */}
                     <div className= 'd-block justify-content-center'>
                         {products.images.map((img, index) => (
                             <div
