@@ -47,13 +47,22 @@ function App() {
 };
 const decreaseQuantity = (productId) => {
   setSelectedProduct((prevCart) =>
-    prevCart
-      .map((item) =>
-        item.id === productId
-          ? { ...item, quantity: item.quantity - 1 } 
-          : item
-      )
-      .filter((item) => item.quantity > 0)
+    prevCart.map((item) => {
+      if (item.id === productId) {
+        const newQuantity = item.quantity - 1;
+        if (newQuantity === 0) {
+          const confirmDelete = window.confirm(
+            "Are you sure you want to remove this product?"
+          );
+          if (!confirmDelete) {
+            return item;
+          }
+        }
+        return { ...item, quantity: newQuantity };
+      }
+      return item;
+    })
+    .filter((item) => item.quantity > 0)
   );
 };
   function remove(idx){

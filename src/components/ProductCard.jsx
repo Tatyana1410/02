@@ -4,6 +4,7 @@ import { faBasketShopping } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
+import ImageBG from '../assets/404-error.svg'
 
 
 function ProductCard({title, id, images, price, selectProd, selectFavorite, category}) {
@@ -13,13 +14,15 @@ function ProductCard({title, id, images, price, selectProd, selectFavorite, cate
         const handleProductClick = (id) => {
           navigate(`/products/${id}`);
         };
+        
 
     return (
       <>
       <div className="product-inner">
         <div className="flex-wrap position-relative overflow-hidden mb-3">
             <img src={images[0]}
-                style={{width:'100%'}}
+                style={{width:'100%'
+                }}
                 className="card-img-top"
                 alt={title}/>
             <div className="actions">
