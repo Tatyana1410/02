@@ -59,7 +59,8 @@ input{
  .actions a {
     text-decoration: none;
     float: left;
-    width: 33.33333333333333%;
+    /* width: 33.33333333333333%; */
+    width:50%;
     color: white;
     padding: 15px 0;
     transition: .2s linear;

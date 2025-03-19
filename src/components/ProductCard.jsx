@@ -25,14 +25,15 @@ function ProductCard({title, id, images, price, selectProd, selectFavorite, cate
                 style={{width:'100%'
                 }}
                 className="card-img-top"
-                alt={title}/>
+                alt={title}
+                onClick={()=>handleProductClick(id)}/>
             <div className="actions">
             <a onClick={()=>selectProd({id,title, images, price})}>
                 <FontAwesomeIcon icon={faBasketShopping} 
                 className='icon'/></a>
-            <a onClick={()=>handleProductClick(id)}>
+            {/* <a onClick={()=>handleProductClick(id)}>
                 <FontAwesomeIcon icon={faMagnifyingGlass} 
-                className='icon'/></a>
+                className='icon'/></a> */}
             <a onClick={()=>selectFavorite({id,title, images, price})}>
                 <FontAwesomeIcon icon={faHeart} 
                 className='icon'/></a>
