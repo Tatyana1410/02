@@ -59,14 +59,14 @@ function Authentiation() {
         });
   },[isSubmit]);
 
-  useEffect(() => {
-      if (isLoading) return;
-      if (isAuthenticated) {
-        navigate('/user'); 
-      } else {
-        navigate('/register');
-      }
-    }, [isAuthenticated]);
+  // useEffect(() => {
+  //     if (isLoading) return;
+  //     if (isAuthenticated) {
+  //       navigate('/user'); 
+  //     } else {
+  //       navigate('/register');
+  //     }
+  //   }, [isAuthenticated]);
 
     return (
         <>
@@ -95,8 +95,11 @@ function Authentiation() {
                             onChange={savePassword}/>
                     </fieldset>
                     <button className='btn btn-secondary col-md-5 pull-xs-right'
-                    type='submit'>
-           Sign in
+                    type='submit'
+                    // disabled={isLoading}
+                    >
+            {/* {isLoading ? 'Signing in...' : 'Sign in'} */}
+            Sign in
             </button>
                 </form>
             </fieldset>
