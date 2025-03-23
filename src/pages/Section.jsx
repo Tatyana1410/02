@@ -69,7 +69,7 @@ const applyFilters = async () => {
     if (priceMin && priceMax) url += `price_min=${priceMin}&price_max=${priceMax}`;
     try {
         const response = await fetch(url);
-        if (!response.ok) throw new Error('Ошибка при загрузке данных');
+        if (!response.ok) throw new Error('Error loading data');
         const data = await response.json();
         setProducts(data);
     } catch (err) {
@@ -89,54 +89,64 @@ useEffect(() => {
     }
 }, [location, prod, id]);
 
+const clearFilters = () => {
+    setPriceFilter('');
+    setPriceMin('');
+    setPriceMax('');
+    setProducts(prod);
+};
+
 if (loading) {return <p>Loading products...</p>;}
 if (error) {return <div className="alert alert-danger">{error}</div>;}
      
     return (
         <>
         <div className='container'>
-            <div className='input-group mb-3'>
+            <div className='d-block d-md-flex mb-3 '>
                 <input
                     type="number"
-                    className="form-control mx-2" 
+                    className="form-control m-2" 
                     aria-label="Search"
                     autoComplete='off'
-                    placeholder="Введите цену"
+                    placeholder="Enter price"
+                    min="0"
                     onChange={(e) =>setPriceFilter(e.target.value)}
                     value={priceFilter}
                 />
                 <input
                     type="number"
-                    className="form-control mx-2" 
+                    className="form-control m-2" 
                     aria-label="Search"
-                    placeholder="Минимальная цена"
+                    placeholder="Minimum price"
+                    min="0"
                     value={priceMin}
                     onChange={(e) =>setPriceMin(e.target.value)}
                     />
                 <input
                     type="number"
-                    className="form-control mx-2" 
+                    className="form-control m-2" 
                     aria-label="Search"
-                    placeholder="Максимальная цена"
+                    placeholder="Maximum price"
+                    min="0"
                     value={priceMax}
                     onChange={(e) =>setPriceMax(e.target.value)}
                     />
-                <button className='btn btn-outline-secondary' onClick={applyFilters}>Фильтровать</button>
+                <button className='btn btn-outline-secondary m-2' onClick={applyFilters}>Filter</button>
+                <button className='btn btn-outline-danger m-2' onClick={clearFilters}>Clear</button>
             </div>
             
           
-            {priceFilter && products.length > 0 &&(
+            {(priceMax && priceMax&& products.length > 0)||(priceFilter && products.length > 0 )?(
             <div className='row justify-content-between'>
                 {products.map((obj)=>( 
                 <ProductCard key={obj.id} {...obj} selectProd={selectProd} selectFavorite={selectFavorite} /> 
                     ))} 
-                </div>)} 
-            {priceMax && priceMax && products.length > 0 &&(
-            <div className='row justify-content-between'>
-                {products.map((obj)=>( 
-                <ProductCard key={obj.id} {...obj} selectProd={selectProd} selectFavorite={selectFavorite} /> 
-                    ))} 
-                </div>)} 
+                </div>):
+                (priceFilter || priceMin || priceMax) && products.length === 0 && (
+                    <p className="text-center mt-4">No products found matching your search criteria.</p>
+                )
+                } 
+
 
             {id && products.length > 0 &&(
                 <div className='row justify-content-between'>
@@ -157,6 +167,7 @@ if (error) {return <div className="alert alert-danger">{error}</div>;}
             <button className='btn btn-lg btn-secondary my-4' style={{width:'100%'}} onClick={loadMore}>Load more</button>
             </div>
             )}
+            
                 
         </div>  
         

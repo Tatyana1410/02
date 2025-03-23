@@ -60,10 +60,10 @@ function Header(props) {
     console.log(filtered)
 
     if (loading) {
-        return <p>Загрузка продуктов...</p>;
+        return <p>Loading Products...</p>;
     }       
     if (error) {
-        return <p>Ошибка загрузки: {error}</p>;}
+        return <p>Loading error: {error}</p>;}
     
     return (
         <section className='header'>
@@ -93,7 +93,6 @@ function Header(props) {
                                                     textDecoration:'none',
                                                     color:'black',
                                                     }}>
-                                                        {/* <FontAwesomeIcon icon={faMagnifyingGlass}/> */}
                                                         <img src={product.images[0]} style={{width:'30px'}} />
                                                         &ensp;{product.title} 
                                                     </Link>

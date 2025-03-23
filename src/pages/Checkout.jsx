@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 
 function Checkout({selectedProduct}) {
     const handleSubmit = (event) => {
         event.preventDefault();
-        alert('Заказ оформлен!');
+        alert('The order has been placed!');
       };
     const[userName, setUserName]=useState('');
     const[userAdress, setUserAdress]= useState('');

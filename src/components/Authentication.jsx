@@ -4,12 +4,11 @@ import { useNavigate,useLocation,Link } from 'react-router-dom';
 
 function Authentiation() {
 
-
-  const[email, setEmail]= useState('');
-  const[password, setPassword] =useState('');
-  const[isSubmit, setIsSubmit]=useState(false);
+  const [email, setEmail]= useState('');
+  const [password, setPassword] =useState('');
+  const [isSubmit, setIsSubmit]=useState(false);
   const [isAuthenticated, setAuth] = useState(false)
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
@@ -40,7 +39,7 @@ function Authentiation() {
       .then(async (response) => {
           if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(errorData.message || 'Ошибка авторизации');
+            throw new Error(errorData.message || 'Authorization error');
           }
           return response.json();
         })
@@ -52,6 +51,7 @@ function Authentiation() {
         })
       .catch((err) => {
           setError(err.message); 
+          navigate('/register');
         })
       .finally(() => {
           setIsSubmit(false); 
@@ -95,9 +95,8 @@ function Authentiation() {
                             onChange={savePassword}/>
                     </fieldset>
                     <button className='btn btn-secondary col-md-5 pull-xs-right'
-                    type='submit'
-                    disabled={isLoading}>
-            {isLoading ? 'Signing in...' : 'Sign in'}
+                    type='submit'>
+           Sign in
             </button>
                 </form>
             </fieldset>

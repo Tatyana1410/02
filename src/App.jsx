@@ -102,8 +102,7 @@ const decreaseQuantity = (productId) => {
             <Route path='/:id' element={<Section selectProd={selectProd} selectFavorite={selectFavorite} l/>}/>
             <Route path='/' element={<Section selectProd={selectProd} selectFavorite={selectFavorite} />}/>
             <Route path='/basket' element={<Basket selectedProduct={selectedProduct} remove={remove} clearCart={clearCart} selectProd={selectProd} decreaseQuantity={decreaseQuantity}/>} />
-            <Route path='/login'
-            element={<Authentication />}/>
+            <Route path='/login' element={<Authentication />}/>
             <Route path='/register' element={<Register/>}/>
             <Route path='/products/:id' element={<Product selectProd={selectProd} selectFavorite={selectFavorite}/>}/>
             <Route path='/user' element={

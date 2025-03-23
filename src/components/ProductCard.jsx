@@ -12,6 +12,7 @@ function ProductCard({title, id, images, price, selectProd, selectFavorite, cate
         const handleProductClick = (id) => {
           navigate(`/products/${id}`);
         };
+        
 
     return (
       <>

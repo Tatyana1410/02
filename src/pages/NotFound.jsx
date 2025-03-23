@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import imageError from '../assets/404-error.svg'
-import { text } from '@fortawesome/fontawesome-svg-core';
 
 function NotFound(props) {
     return (

@@ -27,7 +27,7 @@ function User({favoriteProducts,removeFavorite, selectProd, clearFavorite}) {
             headers:{'Authorization': `Bearer ${localStorage.getItem('your_access_token')}`}})
             .then(resp => {
                 if (!resp.ok) {
-                  throw new Error('Ошибка загрузки профиля');
+                  throw new Error('Error loading profile');
                 }
                 return resp.json();
               })
@@ -38,7 +38,7 @@ function User({favoriteProducts,removeFavorite, selectProd, clearFavorite}) {
               })
               .catch(err => {
                 console.error('Error fetching profile:', err);
-                alert('Не удалось загрузить профиль');
+                alert('Failed to load profile');
               })
               .finally(() => {
                 setIsProfileLoading(false);
@@ -61,12 +61,12 @@ function User({favoriteProducts,removeFavorite, selectProd, clearFavorite}) {
         .then(async (response) => {
           if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(errorData.message || 'Ошибка при обновлении данных');
+            throw new Error(errorData.message || 'Error updating data');
           }
           return response.json();
         })
         .then((data) => {
-          alert('Данные успешно обновлены!');
+          alert('Data updated successfully!');
           console.log('Updated user:', data);
         })
         .catch((error) => {
@@ -94,7 +94,7 @@ function User({favoriteProducts,removeFavorite, selectProd, clearFavorite}) {
     navigate(`/products/${productId}`);
     };
  if (isProfileLoading) {
-            return <div>Загрузка профиля...</div>;
+            return <div>Loading profile...</div>;
           }   
 
     return (
