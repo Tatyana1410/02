@@ -1,10 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState,useContext} from 'react';
+import { ProductContext } from '../context/ProductContext';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import { faBasketShopping } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { useParams } from 'react-router-dom';
 
-function Product({selectProd,selectFavorite}) {
+function Product() {
+    const {
+        selectFavorite,
+        selectProd
+      } = useContext(ProductContext);
     const {id} =useParams()
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);

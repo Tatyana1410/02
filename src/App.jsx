@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { ProductProvider } from './context/ProductContext';
 
 import Header from './components/Header'
 import Sidebar from './components/Sidebar'
@@ -22,100 +22,33 @@ import './App.css'
 
 
 function App() {
-
-  const [selectedProduct, setSelectedProduct]=useState(()=>{
-    const savedCart = localStorage.getItem('cart');
-    return savedCart ? JSON.parse(savedCart) : [];
-  });
-  useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(selectedProduct));
-  }, [selectedProduct]);
-  
-  const selectProd = (product) => {
-  setSelectedProduct((prevCart) => {
-    const existingItem = prevCart.find((item) => item.id === product.id);
-    if (existingItem) {
-      return prevCart.map((item) =>
-        item.id === product.id
-          ? { ...item, quantity: item.quantity + 1 } 
-          : item
-      );
-    } else {
-      return [...prevCart, { ...product, quantity: 1 }];
-    }
-  });
-};
-const decreaseQuantity = (productId) => {
-  setSelectedProduct((prevCart) =>
-    prevCart.map((item) => {
-      if (item.id === productId) {
-        const newQuantity = item.quantity - 1;
-        if (newQuantity === 0) {
-          const confirmDelete = window.confirm(
-            "Are you sure you want to remove this product?"
-          );
-          if (!confirmDelete) {
-            return item;
-          }
-        }
-        return { ...item, quantity: newQuantity };
-      }
-      return item;
-    })
-    .filter((item) => item.quantity > 0)
-  );
-};
-  function remove(idx){
-    setSelectedProduct(prod=>prod.filter((value,index)=>index!=idx));
-  } 
-  const clearCart = () => {
-    const isConfirmed = window.confirm('Are you sure you want to empty your basket?');
-    if (isConfirmed) {
-    setSelectedProduct([]); 
-    localStorage.removeItem('cart'); 
-  }};
-             
-  const [favoriteProducts, setFavoriteProducts]=useState([]);
-  useEffect(() => {
-    localStorage.setItem('favorite', JSON.stringify(favoriteProducts));
-  }, [favoriteProducts]);
-  function selectFavorite (product){
-    setFavoriteProducts(favoriteProduct=>[...favoriteProduct, product])
-  }
-  function removeFavorite(idx){
-    setFavoriteProducts(prod=>prod.filter((value,index)=>index!=idx))
-  }
-  const clearFavorite = () => {
-    setFavoriteProducts([]); 
-  };
-
-
   return (
     <>
-
+    <ProductProvider>
       <Router>
         <Header/>
         <div className='container d-sm-flex d-block'>
         <Sidebar/>
         <SwipeUp/>
           <Routes>
-            <Route path='/:id' element={<Section selectProd={selectProd} selectFavorite={selectFavorite} l/>}/>
-            <Route path='/' element={<Section selectProd={selectProd} selectFavorite={selectFavorite} />}/>
-            <Route path='/basket' element={<Basket selectedProduct={selectedProduct} remove={remove} clearCart={clearCart} selectProd={selectProd} decreaseQuantity={decreaseQuantity}/>} />
+            <Route path='/:id' element={<Section/>}/>
+            <Route path='/' element={<Section/>}/>
+            <Route path='/basket' element={<Basket/>} />
             <Route path='/login' element={<Authentication />}/>
             <Route path='/register' element={<Register/>}/>
-            <Route path='/products/:id' element={<Product selectProd={selectProd} selectFavorite={selectFavorite}/>}/>
+            <Route path='/products/:id' element={<Product />}/>
             <Route path='/user' element={
               <PrivateRoute>
-                <User favoriteProducts={favoriteProducts} removeFavorite={removeFavorite} selectProd={selectProd} clearFavorite={clearFavorite}/>
+                <User />
               </PrivateRoute>
               } ></Route>
-            <Route path='/checkout' element={<Checkout selectedProduct={selectedProduct}/>}></Route>
+            <Route path='/checkout' element={<Checkout/>}></Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
         <Footer/>
       </Router>
+    </ProductProvider>
     </>
   )
 }

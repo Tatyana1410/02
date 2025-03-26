@@ -1,10 +1,17 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect,useContext} from 'react';
+import { ProductContext } from '../context/ProductContext';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import { faBasketShopping } from '@fortawesome/free-solid-svg-icons';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 
-function User({favoriteProducts,removeFavorite, selectProd, clearFavorite}) {
+function User() {
+  const {
+    favoriteProducts,
+    removeFavorite,
+    clearFavorite,
+    selectProd
+    } = useContext(ProductContext);
 
     const [userName, setUserName]=useState('');
     const [email, setEmail]= useState('');

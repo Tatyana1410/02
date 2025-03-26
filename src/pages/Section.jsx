@@ -1,8 +1,13 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
+import { ProductContext } from '../context/ProductContext';
 import ProductCard from '../components/ProductCard';
 import { useParams, useLocation } from 'react-router-dom';
 
-function Section({selectProd, selectFavorite}) {
+function Section() {
+    const {
+        selectFavorite,
+        selectProd
+      } = useContext(ProductContext);
     const { id } = useParams();
     const location = useLocation();
     const [products, setProducts] = useState([]);

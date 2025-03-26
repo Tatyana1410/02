@@ -1,6 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState,useContext} from 'react';
+import { ProductContext } from '../context/ProductContext';
 
-function Checkout({selectedProduct}) {
+function Checkout() {
+    const {selectedProduct} = useContext(ProductContext);
     const handleSubmit = (event) => {
         event.preventDefault();
         alert('The order has been placed!');
@@ -17,10 +19,10 @@ function Checkout({selectedProduct}) {
     function saveUserPhone(e){
         setUserPhone(e.target.value)
     }
-    const totalPrice = selectedProduct.reduce((acc, product) => {
-        const price = product.price || 0;
-        return acc + price;
-      }, 0);
+    const totalPrice = selectedProduct.reduce(
+        (sum, item) => sum + item.quantity * item.price,
+        0
+      );
     
     
     return (
