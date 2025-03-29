@@ -89,16 +89,17 @@ useEffect(() => {
     setPriceFilter('');
     setPriceMin('');
     setPriceMax ('');
-    if (!id) {
-        setProducts(prod);
-    }
-}, [location, prod, id]);
+    // if (!id) {
+    //     setProducts(prod);
+    // }
+}, [location, id]);
 
 const clearFilters = () => {
     setPriceFilter('');
     setPriceMin('');
     setPriceMax('');
-    setProducts(prod);
+    // applyFilters();
+    // setProducts(prod);
 };
 
 if (loading) {return <p>Loading products...</p>;}
@@ -141,19 +142,18 @@ if (error) {return <div className="alert alert-danger">{error}</div>;}
             </div>
             
           
-            {(priceMax && priceMax&& products.length > 0)||(priceFilter && products.length > 0 )?(
+            {(priceMax && priceMax && products.length > 0)||(priceFilter && products.length > 0 )||(id && products.length > 0)?(
             <div className='row justify-content-between'>
                 {products.map((obj)=>( 
                 <ProductCard key={obj.id} {...obj} selectProd={selectProd} selectFavorite={selectFavorite} /> 
-                    ))} 
+                    ))}
                 </div>):
                 (priceFilter || priceMin || priceMax) && products.length === 0 && (
                     <p className="text-center mt-4">No products found matching your search criteria.</p>
                 )
                 } 
 
-
-            {id && products.length > 0 &&(
+            {/* {id && products.length > 0 &&(
                 <div className='row justify-content-between'>
             <h2 key={products.id}>
                 {products.length>0 ? products[0].category.name:'Category'}
@@ -161,12 +161,12 @@ if (error) {return <div className="alert alert-danger">{error}</div>;}
             
                 {products.map((obj)=>( 
                 <ProductCard key={obj.id} {...obj} selectProd={selectProd} selectFavorite={selectFavorite} /> 
-                ))} 
-           </div>)}
+                ))} 2
+           </div>)} */}
 
-           {!id &&(
+           {!id && !priceFilter && !priceMax && !priceMin &&(
                  <div className='row justify-content-between'>
-                    {prod.map((obj)=>( 
+                    {products.map((obj)=>( 
                 <ProductCard key={obj.id} {...obj} selectProd={selectProd} selectFavorite={selectFavorite} /> 
                 ))} 
             <button className='btn btn-lg btn-secondary my-4' style={{width:'100%'}} onClick={loadMore}>Load more</button>

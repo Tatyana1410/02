@@ -1,4 +1,3 @@
-
 .header,.footer{
     background-color: rgba(82, 73, 96, 0.3);
 }
@@ -59,9 +58,7 @@ input{
  .actions a {
     text-decoration: none;
     float: left;
-    /* width: 33.33333333333333%; */
     width:50%;
-
     color: white;
     padding: 15px 0;
     transition: .2s linear;
@@ -117,7 +114,13 @@ input{
     border-color: #2a196b;
     transform: scale(1.1);
 }
-
+@media (max-width:768px) {
+    .main-image {
+        width: 16rem}
+    .thumbnail {
+        width: 4rem}
+    
+}
     
 
 

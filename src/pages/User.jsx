@@ -25,8 +25,6 @@ function User() {
         setIsSubmit(true);
         setIsLoading(true);
     }
-    console.log(id)
-
 
     useEffect(() => {
         fetch(`https://api.escuelajs.co/api/v1/auth/profile/`,{

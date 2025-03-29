@@ -17,7 +17,7 @@ function Footer(props) {
             <footer className="pt-5 pb-1 my-5">
                 <div className='row row-cols-1 row-cols-sm-2 row-cols-md-5 border-bottom'>
                     <div className="col">
-                        <Link to={"/"} className="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
+                        <Link to={"/home"} className="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
                         <h1 style={{color:'black',
                                 fontFamily:'fantasy',
                                 textAlign:'center'

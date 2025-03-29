@@ -13,6 +13,7 @@ import Checkout from './pages/Checkout'
 import PrivateRoute from './components/PrivateRoute'
 import NotFound from './pages/NotFound'
 import SwipeUp from './components/SwipeUp'
+import Check from './components/Check';
 
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 
@@ -21,13 +22,14 @@ import 'bootstrap/dist/js/bootstrap.bundle.min'
 import './App.css'
 
 
+
 function App() {
   return (
     <>
     <ProductProvider>
       <Router>
         <Header/>
-        <div className='container d-sm-flex d-block'>
+        <div className='container d-md-flex d-block'>
         <Sidebar/>
         <SwipeUp/>
           <Routes>
@@ -42,8 +44,9 @@ function App() {
                 <User />
               </PrivateRoute>
               } ></Route>
-            <Route path='/checkout' element={<Checkout/>}></Route>
-            <Route path="*" element={<NotFound />} />
+            <Route path='/checkout' element={<Checkout/>}/>
+            <Route path='/check' element={<Check/>}/>
+            <Route path='*' element={<NotFound />} />
           </Routes>
         </div>
         <Footer/>

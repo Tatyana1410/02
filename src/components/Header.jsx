@@ -57,7 +57,6 @@ function Header(props) {
             product.title.toLowerCase().includes(searchValue.toLowerCase())
         );
     }, [searchValue, prod]);
-    console.log(filtered)
 
     if (loading) {
         return <p>Loading Products...</p>;

@@ -77,6 +77,11 @@ export const ProductProvider = ({ children }) => {
     setFavoriteProducts([]);
   };
 
+  const clearCheckCart = () => {
+      setSelectedProduct([]);
+      localStorage.removeItem('cart');
+  };
+
   return (
     <ProductContext.Provider
       value={{
@@ -89,6 +94,7 @@ export const ProductProvider = ({ children }) => {
         selectFavorite,
         removeFavorite,
         clearFavorite,
+        clearCheckCart
       }}
     >
       {children}

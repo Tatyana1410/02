@@ -45,7 +45,7 @@ function Product() {
     return (
         <>
         <div className="container position-relative">
-            <div className="d-sm-flex d-block gap-3 " >
+            <div className="d-md-flex d-block gap-3 " >
                 <div className="d-flex align-items-start col-12 col-md-6 mb-3 mb-md-0">
             {/* big image */}
                     <div className='main-image'>

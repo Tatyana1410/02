@@ -1,11 +1,22 @@
 import React, {useState,useContext} from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ProductContext } from '../context/ProductContext';
 
 function Checkout() {
-    const {selectedProduct} = useContext(ProductContext);
+    const {selectedProduct,clearCheckCart} = useContext(ProductContext);
+    const navigate = useNavigate();
     const handleSubmit = (event) => {
         event.preventDefault();
-        alert('The order has been placed!');
+        if (!userName.trim() || !userAdress.trim() || !userPhone.trim()) {
+        alert('All fields are required!');
+        return;
+        }
+        const phoneRegex = /^[0-9]{10,15}$/;
+        if (!phoneRegex.test(userPhone)) {
+        alert('Please enter a valid phone number (digits only, 10 to 15 characters).');
+        return;
+        }
+        navigate('/check')
       };
     const[userName, setUserName]=useState('');
     const[userAdress, setUserAdress]= useState('');
@@ -23,8 +34,8 @@ function Checkout() {
         (sum, item) => sum + item.quantity * item.price,
         0
       );
-    
-    
+
+
     return (
         <div className='col-md-6 offset-md-1 col-xs-12 p-md-3 rouded-4 shadow'>
             <h2>Place an order</h2>
@@ -71,7 +82,7 @@ function Checkout() {
                             <h4>Total Price: {totalPrice} $</h4>
                         </div>
                         <div>
-                        <button type="submit" className='btn btn-secondary'>Confirm the order</button>
+                        <button type="submit" className='btn btn-secondary' onClick={clearCheckCart}>Confirm the order</button>
                         </div>
                 </form>
             </fieldset>
